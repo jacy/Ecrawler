@@ -24,5 +24,6 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+	Database = ?CHILD(db, worker),
+    {ok, { {one_for_one, 5, 10}, [Database]} }.
 
