@@ -20,9 +20,6 @@
 			<column name="interval" type="smallint">
 			    <constraints nullable="false"/>
 			</column>
-			<column name="status" type="smallint">
-			    <constraints nullable="false"/>
-			</column>
 		</createTable>
 		<modifySql dbms="mysql">
 			<append value=" engine innodb" />

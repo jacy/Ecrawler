@@ -1,1 +1,1 @@
--record(provider,{id,name,type,url,interval,status}).
+-record(provider,{id,name,type,url,interval}).

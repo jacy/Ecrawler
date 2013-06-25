@@ -12,7 +12,6 @@
    			<column name="type" value="KENO"/>
    			<column name="url" value="https://www.acttab.com.au/interbet/kenoreswin;1372346560"/>
    			<column name="interval" value="240"/>
-   			<column name="status" value="1"/>
    		</insert>
    </changeSet>
 </databaseChangeLog>

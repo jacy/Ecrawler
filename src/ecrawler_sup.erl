@@ -25,5 +25,6 @@ start_link() ->
 
 init([]) ->
 	Database = ?CHILD(db, worker),
-    {ok, { {one_for_one, 5, 10}, [Database]} }.
+	Crawler = ?CHILD(httpclient, worker),
+    {ok, { {one_for_one, 5, 10}, [Database, Crawler]} }.
 
