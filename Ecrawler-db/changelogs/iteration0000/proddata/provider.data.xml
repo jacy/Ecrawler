@@ -1,0 +1,18 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    
+   <changeSet id="1" author="jacy">
+   		<insert tableName="provider">
+   			<column name="id" value="10001"/>
+   			<column name="name" value="Australia"/>
+   			<column name="type" value="KENO"/>
+   			<column name="url" value="https://www.acttab.com.au/interbet/kenoreswin;1372346560"/>
+   			<column name="interval" value="240"/>
+   			<column name="status" value="1"/>
+   		</insert>
+   </changeSet>
+</databaseChangeLog>

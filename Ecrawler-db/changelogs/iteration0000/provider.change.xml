@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="jacy">
+		<createTable tableName="provider">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="name" type="varchar(32)" >
+			    <constraints nullable="false"/>
+			</column>
+			<column name="type" type="varchar(32)">
+			    <constraints nullable="false"/>
+			</column>
+			<column name="url" type="varchar(256)">
+			    <constraints nullable="false"/>
+			</column>
+			<column name="interval" type="smallint">
+			    <constraints nullable="false"/>
+			</column>
+			<column name="status" type="smallint">
+			    <constraints nullable="false"/>
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value=" engine innodb" />
+		</modifySql>
+	</changeSet>
+	
+	
+</databaseChangeLog>

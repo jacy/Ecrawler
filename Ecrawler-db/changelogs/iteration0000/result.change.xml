@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="jacy">
+		<createTable tableName="result">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="drawno" type="varchar(128)" />
+			<column name="result" type="varchar(256)" />
+			<column name="provider_id" type="bigint">
+			    <constraints nullable="false"/>
+			</column>
+			<column name="createtime" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP" />
+		</createTable>
+		<modifySql dbms="mysql">
+			<append value=" engine innodb" />
+		</modifySql>
+	</changeSet>
+	
+	
+</databaseChangeLog>

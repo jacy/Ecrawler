@@ -5,4 +5,5 @@
               {applications,[kernel,stdlib]},
               {mod,{ecrawler_app,[]}},
               {env,[]},
-              {modules,[db,ecrawler_app,ecrawler_sup]}]}.
+              {modules,[db,ecrawler_app,ecrawler_sup,erl_http_client,
+                        httpclient]}]}.
