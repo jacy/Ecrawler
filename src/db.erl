@@ -15,7 +15,7 @@ start_link() ->
 stop() -> gen_server:cast(?MODULE, stop).
 
 providers() ->
-	Result = emysql:execute(db_pool,<<"select `id`,`name`,`type`,`url`,`interval`,`status` from provider order by `interval`,`id`">>),
+	Result = emysql:execute(db_pool,<<"select `id`,`name`,`type`,`url`,`interval` from provider order by `interval`,`id`">>),
 	emysql_util:as_record(Result, provider, record_info(fields, provider)).
 
 %% ================================================================
@@ -24,10 +24,10 @@ init([]) ->
 	io:format("********Going to start Database*****"),
 	crypto:start(),
 	application:start(emysql),
-	Result = emysql:add_pool(db_pool, 20,
+	emysql:add_pool(db_pool, 20,
 		"erlang", "111111", "localhost", 3306,
 		"lottery", utf8),
-	io:format("********Database is staring:~p*****", [Result]),
+	io:format("********Database is staring*****"),
   	{ok, []}.
 
 handle_call(_Request, _From, State) ->

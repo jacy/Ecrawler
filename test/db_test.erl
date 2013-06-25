@@ -37,7 +37,6 @@ provider() ->
 				   name = <<"Australia">>,
 				   type = <<"KENO">>,
 				   url = <<"https://www.acttab.com.au/interbet/kenoreswin;1372346560">>,
-				   interval = 240,
-				   status = 1
+				   interval = 240
 				  }],
 				 db:providers()).

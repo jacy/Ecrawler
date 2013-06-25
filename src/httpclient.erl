@@ -8,6 +8,7 @@
 -define(SERVER, ?MODULE).
 -define(REQ_HEADER, [{"User-Agent","Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:21.0) Gecko/20100101 Firefox/21.0"},
 				 {"Connection","close"}]).
+-define(SSL_OPTION,[{ssl,[{verify,0}]}]).
 -include("crawler.hrl").
 
 start_link() ->
@@ -18,7 +19,9 @@ crawler() ->
 	[spawn(fun() -> crawler(P) end) || P <- db:providers()].
 
 crawler(#provider{} = Provider) ->
-	case ibrowse:send_req(Provider#provider.url, ?REQ_HEADER, get, [], [],30000) of
+	Url = binary_to_list(Provider#provider.url),
+	io:format("crawler Url: ~p ~n",[Url]),
+	case ibrowse:send_req(Url, ?REQ_HEADER, get, [], ?SSL_OPTION, 30000) of
 		{ok, _Status, _Headers, Body} ->
 			io:format("body ~p ~n",[Body]);
 		{error, Msg} ->
@@ -28,6 +31,7 @@ crawler(#provider{} = Provider) ->
     end.
 %%===============================================
 init([]) ->
+	ssl:start(),
 	ibrowse:start(),
 	spawn(fun crawler/0),
 	{ok,[]}.
