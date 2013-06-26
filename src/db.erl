@@ -13,7 +13,6 @@
 start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
-
 stop() -> gen_server:cast(?MODULE, stop).
 
 save_result(_, []) -> ok;
@@ -41,29 +40,32 @@ execute(Sql, Arg) ->
 
 %% =========================Callbacke=======================================
 init([]) ->
-	io:format("********Going to start Database*****"),
+	process_flag(trap_exit,true),
 	crypto:start(),
 	application:start(emysql),
 	emysql:add_pool(db_pool, 20,
 		"erlang", "111111", "localhost", 3306,
 		"lottery", utf8),
-	io:format("********Database is staring*****"),
+	io:format("********Database is staring*****~n"),
   	{ok, []}.
 
-handle_call(_Request, _From, State) ->
+handle_call(Msg, _From, State) ->
+  io:format("********Database receive unknown call Msg:~p*****~n",[Msg]),
   {reply, ok, State}.
 
 handle_cast(stop, State) -> {stop, normal, State};
-handle_cast(_Msg, State) -> {noreply, State}.
+handle_cast(Msg, State) -> 
+	io:format("********Database receive unknown cast Msg:~p*****~n",[Msg]),
+	{noreply, State}.
 
-handle_info(_Info, State) ->
-  {noreply, State}.
+handle_info(Msg, State) ->
+	io:format("********Database receive unknown Msg:~p ~n*****~n",[Msg]),
+	{noreply, State}.
 
 terminate(_Reason, _State) ->
-	application:stop(emysql),
-	crypto:stop(),
-	unregister(?MODULE),
-	io:format("********Database connection is stopping*****").
+	emysql:remove_pool(emysql),
+	io:format("********Database connection is stopping*****~n"),
+	ok.
 
 code_change(_OldVsn, State, _Extra) ->
   {ok, State}.

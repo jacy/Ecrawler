@@ -23,8 +23,13 @@ start_link() ->
 %% Supervisor callbacks
 %% ===================================================================
 
+%% If the gen_server is part of a supervision tree and is ordered by its supervisor to terminate, this function will 
+%% be called with Reason=shutdown if the following conditions apply: 
+%% * the gen_server has been set to trap exit signals, and 
+%% * the shutdown strategy as defined in the 
+%% supervisor's child specification is an integer timeout value, not brutal_kill.
 init([]) ->
 	Database = ?CHILD(db, worker),
-	Crawler = ?CHILD(httpclient, worker),
-    {ok, { {one_for_one, 5, 10}, [Database, Crawler]} }.
+	Crawler = ?CHILD(crawler, worker),
+    {ok, { {rest_for_one, 5, 10}, [Database, Crawler]} }.
 
