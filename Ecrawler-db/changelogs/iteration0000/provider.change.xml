@@ -26,5 +26,7 @@
 		</modifySql>
 	</changeSet>
 	
-	
+	<changeSet id="2" author="jacy">
+		<addUniqueConstraint tableName="provider" columnNames="type,name" constraintName="uniq_pname_by_type"/>
+	</changeSet>
 </databaseChangeLog>

@@ -18,12 +18,13 @@ start_link() ->
 crawler() ->
 	[spawn(fun() -> crawler(P) end) || P <- db:providers()].
 
-crawler(#provider{} = Provider) ->
-	Url = binary_to_list(Provider#provider.url),
+crawler(#provider{url = U,id=Id}) ->
+	Url = binary_to_list(U),
 	io:format("crawler Url: ~p ~n",[Url]),
 	case ibrowse:send_req(Url, ?REQ_HEADER, get, [], ?SSL_OPTION, 30000) of
 		{ok, _Status, _Headers, Body} ->
-			io:format("body ~p ~n",[Body]);
+			Results = parser:parse(Body),
+			db:save_result(Id, Results);
 		{error, Msg} ->
 		    io:format("crawler error ~p ~n",[Msg]);
 		Err ->

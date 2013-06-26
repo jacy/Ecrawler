@@ -26,7 +26,9 @@ stop(_) ->
 	db:stop().
 
 all() ->
-	provider().
+	provider(),
+	load_result(),
+	save_or_update_result().
  
 %%%%%%%%%%%%%%%%%%%%
 %%% ACTUAL TESTS %%%
@@ -40,3 +42,22 @@ provider() ->
 				   interval = 240
 				  }],
 				 db:providers()).
+
+load_result() ->
+	?assertMatch([[10001,<<"7060">>,<<"1,56">>]],db:load_result(10001,"7060")).
+
+save_or_update_result() ->
+	Drawno = "noexist_draw_no",
+	Result = "11,22",
+	?assertMatch([],db:load_result(10001, Drawno)),
+	db:save_or_update_result(10001, Drawno, Result),
+	BinaryDrawno = list_to_binary(Drawno),
+	BinaryResult = list_to_binary(Result),
+	?assertMatch([[10001,BinaryDrawno,BinaryResult]],db:load_result(10001, Drawno)),
+	
+	NewResult = "22,333,444",
+	BinaryNewResult = list_to_binary(NewResult),
+	db:save_or_update_result(10001, Drawno, NewResult),
+	?assertMatch([[10001,BinaryDrawno,BinaryNewResult]],db:load_result(10001, Drawno)).
+
+

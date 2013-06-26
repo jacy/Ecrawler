@@ -1,1 +1,1 @@
--record(provider,{id,name,type,url,interval}).
+-record(provider,{id,name,type,url,interval}).-record(lottery,{drawno,result}).

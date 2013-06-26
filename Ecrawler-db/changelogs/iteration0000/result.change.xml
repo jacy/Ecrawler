@@ -13,12 +13,13 @@
 			<column name="provider_id" type="bigint">
 			    <constraints nullable="false"/>
 			</column>
-			<column name="createtime" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP" />
 		</createTable>
 		<modifySql dbms="mysql">
 			<append value=" engine innodb" />
 		</modifySql>
 	</changeSet>
 	
-	
+	<changeSet id="2" author="jacy">
+		<addUniqueConstraint tableName="result" columnNames="provider_id,drawno" constraintName="uniq_rno"/>
+	</changeSet>
 </databaseChangeLog>
