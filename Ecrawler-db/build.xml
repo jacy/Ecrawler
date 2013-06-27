@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="dbauto-mainwaller" default="update.prod.db" basedir=".">
+<project name="dbauto-ecrawler" default="update.prod.db" basedir=".">
 	<property file="${basedir}/jdbc.properties" />
 
 	<property name="lib.dir" value="${basedir}/lib" />
